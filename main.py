@@ -2,6 +2,7 @@
 import telebot
 import logging
 
+import wordbank
 # logging.basicConfig(level=logging.DEBUG)
 # logging.basicConfig(level=logging.INFO)
 logging.basicConfig(
@@ -39,6 +40,30 @@ def start(message):
 def id_(message):
     bot.send_message(message.chat.id, f'Your id is {message.from_user.id}', parse_mode='html')
 
+def get_text(message):
+    if len(message.text.split(' ')) < 2:
+        # if message.reply_to_message and message.reply_to_message.text:
+        #     return message.reply_to_message.text
+        #
+        # else:
+        # return None
+        return ''
+    else:
+        return message.text.split(' ')[1]
+
+@bot.message_handler(commands=['s', 'suggest'])
+def suggest(message):
+
+    num = get_text(message)
+    # check
+    # if num and all(num, lambda x: x.isdigit()):
+    if num.isdigit():
+        words = wb.suggest_words_for_num(num)
+        # bot.send_message(message.chat.id, f'Words for {num}:<br> {words}', parse_mode='html')
+        bot.send_message(message.chat.id, f'Words for {num}: {words}', parse_mode='html')
+    else:
+        bot.send_message(message.chat.id, f'Expected digits only, but got "{num}"', parse_mode='html')
+# if len(message.text.split(' ')) < 2:
 
 # from mailbox import MailBox
 # import mailbox
@@ -61,4 +86,7 @@ def main():
 
 
 if __name__ == '__main__':
+    import wordbank
+    global wb
+    wb = wordbank.WordBank(wordfile=wordbank.WORD_RUS_TXT)
     main()

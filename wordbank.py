@@ -1,5 +1,8 @@
 from collections import defaultdict
 
+ZDF_UTF_TXT = './data/zdf-utf8.txt'
+
+WORD_RUS_TXT = './data/word_rus.txt'
 
 class WordBank:
     num_to_chars = ['нл', 'кг', 'бхц', 'тз', 'чр', 'п', 'шщж', 'см', 'вф', 'д']
