@@ -15,12 +15,15 @@ class WordBank:
     def __init__(self, config=None, wordfile=None):
         self.config = config if config is not None else defaultdict(str)
         self.num_to_words = defaultdict(list)
+        self.wordfile = wordfile
         if wordfile is not None:
             self.wordfile = wordfile
             self.config['wordfile'] = wordfile
         else:
             # self.wordfile = self.config['wordfile']
             ...
+        if self.wordfile is not None:
+            self.load_words_from_file()
 
     # @staticmethod
     def word_to_number(self, word: str) -> str:
@@ -58,3 +61,16 @@ class WordBank:
                 found_count += 1
             print(word)
         return found_count
+
+    def suggest_words_for_num(self, num: str, strict=False, max_count=100):
+        # Check if num at all
+        if isinstance(num, int):
+            num = str(num)
+        num = num.strip()
+        # words = self.num_to_words.get(num, [])
+        words = self.num_to_words[num]
+        if strict:
+            # max_count ?!
+            return words
+        ...
+        return words
