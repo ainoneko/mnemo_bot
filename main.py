@@ -14,6 +14,8 @@ logging.basicConfig(
 
 import config
 
+HELP_STRINGS = ['?', '/help']
+
 ALLOWED_IDS = [335248526]  # ints
 cred = config.get_settings()
 
@@ -77,6 +79,17 @@ def suggest(message):
 # @bot.callback_query_handler(func=lambda call: True)
 @bot.message_handler(func=lambda message: True)
 def callback_all(message):
+    # (i, chars) for (i, chars) in enumerate(wb.num_to_chars) 
+    if message.text in HELP_STRINGS:
+        bot.send_message(message.chat.id, 
+            f"""Enter numbers to get words, words to get numbers.
+Chars for digits 0..9: {
+                str( 
+                wb.num_to_chars 
+                )
+            }""", parse_mode='html')
+        return
+
     for num in (parts := message.text.split(' ')):
         if num.isdigit():
             words = wb.suggest_words_for_num(num)
