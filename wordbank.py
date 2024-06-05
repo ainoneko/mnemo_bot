@@ -31,6 +31,7 @@ class WordBank:
     def word_to_number(self, word: str) -> str:
         # logging.debug('number(%s)', w)
         # print(w)
+        word = word.lower()
         num_str = ''
         for ch in word:
             if ch in __class__.char_to_num:
