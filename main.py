@@ -100,12 +100,6 @@ def callback_all(message):
     #     bot.send_message(message.chat.id, f'Number for "{num}": "{new_num}"', parse_mode='html')
 
 
-def pair_of_ints(s):
-    logging.debug('pair_of_ints(%s)' % s)
-    pair = map(lambda s: int(s), s.split())
-    logging.debug('pair_of_ints(%s) is %s' % (s, pair))
-    return pair
-
 
 def main():
     bot.polling(none_stop=True)
