@@ -77,19 +77,27 @@ def suggest(message):
 # @bot.callback_query_handler(func=lambda call: True)
 @bot.message_handler(func=lambda message: True)
 def callback_all(message):
-    num = message.text
-    if len(parts := message.text.split(' ')) < 2:
-        # return ''
-        pass
-    else:
-        num = parts[1]
-    if num.isdigit():
-        words = wb.suggest_words_for_num(num)
-        bot.send_message(message.chat.id, f'Words for {num}: {words}', parse_mode='html')
-    else:
-        # Translate word to number
-        new_num = wb.word_to_number(num)
-        bot.send_message(message.chat.id, f'Number for "{num}": "{new_num}"', parse_mode='html')
+    for num in (parts := message.text.split(' ')):
+        if num.isdigit():
+            words = wb.suggest_words_for_num(num)
+            bot.send_message(message.chat.id, f'Words for {num}: {words}', parse_mode='html')
+        else:
+            # Translate word to number
+            new_num = wb.word_to_number(num)
+            bot.send_message(message.chat.id, f'Number for "{num}": "{new_num}"', parse_mode='html')
+
+    # if len(parts := message.text.split(' ')) < 2:
+    #     # return ''
+    #     pass
+    # else:
+    #     num = parts[1]
+    # if num.isdigit():
+    #     words = wb.suggest_words_for_num(num)
+    #     bot.send_message(message.chat.id, f'Words for {num}: {words}', parse_mode='html')
+    # else:
+    #     # Translate word to number
+    #     new_num = wb.word_to_number(num)
+    #     bot.send_message(message.chat.id, f'Number for "{num}": "{new_num}"', parse_mode='html')
 
 
 def pair_of_ints(s):
