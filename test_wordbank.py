@@ -1,6 +1,13 @@
 import unittest
 
+import logging
+
 from wordbank import WordBank
+
+logging.basicConfig(level=logging.DEBUG)
+
+
+# logging.basicConfig(level=logging.INFO)
 
 ZDF_UTF_TXT = './data/zdf-utf8.txt'
 
@@ -11,6 +18,17 @@ class MyTestCase(unittest.TestCase):
     def test_create_instance(self):
         wb = WordBank()
         self.assertIsNotNone(wb)
+
+    def test_suggest_splitted(self):
+        wb =  WordBank(wordfile=WORD_RUS_TXT)
+        sugg = wb.suggest_words_for_num('111222')
+        print(sugg)
+        print('-----------')
+        sugg = wb.suggest_words_for_num('111222333')
+        print(sugg)
+        # self.assertEqual(sugg1, sugg2)
+        # self.assertEqual(['акциз'], sugg2)
+        # exit()
 
     def test_load_words_rus(self):
         wb = WordBank()
