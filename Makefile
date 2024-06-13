@@ -1,4 +1,6 @@
 
+BOT_NAME=neko_mnemo_bot
+
 all: venv bot
 
 venv:
@@ -13,8 +15,17 @@ bot: venv
 
 run: bot
 
-docker:
-	echo "Not implemented"
+
+docker_build:
+	@echo Build the docker image
+	docker build -t $(BOT_NAME) .
+
+docker_run:
+	@echo Run the docker image, as daemon
+	docker run -d $(BOT_NAME)
+
+docker: docker_build docker_run
+
 
 clean:
 	rm -rf .venv
