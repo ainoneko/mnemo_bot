@@ -1,13 +1,16 @@
 
 BOT_NAME=neko_mnemo_bot
 
-all: venv bot
+all: venv unzip config bot
 
 venv:
 	test -d .venv || ./setup_venv.sh
 
 unzip:
 	./unzip_data_files.sh ${ZIP_DIR} ${DATA_DIR}
+
+config:
+	test -d config.yml || echo "Add the 'config.yml' file (see config_SAMPLE.yml for reference)"
 
 bot: venv
 	( . .venv/bin/activate && \
