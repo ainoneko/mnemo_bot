@@ -10,7 +10,7 @@ unzip:
 	./unzip_data_files.sh ${ZIP_DIR} ${DATA_DIR}
 
 config:
-	test -d config.yml || echo "Add the 'config.yml' file (see config_SAMPLE.yml for reference)"
+	test -f config.yml || echo "Add the 'config.yml' file (see config_SAMPLE.yml for reference)" && ls config.yml
 
 bot: venv
 	( . .venv/bin/activate && \
